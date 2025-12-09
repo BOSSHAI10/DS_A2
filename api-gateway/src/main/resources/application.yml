@@ -1,0 +1,91 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      # Reguli de rutare (Routing)
+      routes:
+        # 1. Rută pentru Auth Service (Port 8083)
+        - id: auth-service
+          uri: http://auth-service:8083      # <--- MODIFICAT (era 8080)
+          predicates:
+            - Path=/auth/**
+
+        # 2. Rută pentru Users Service (Port 8081)
+        - id: users-service
+          uri: http://users-service:8081     # (Era corect)
+          predicates:
+            - Path=/people/**
+
+        # 3. Rută pentru Devices Service (Port 8082)
+        - id: devices-service
+          uri: http://devices-service:8082   # (Era corect)
+          predicates:
+            - Path=/devices/**
+
+        # --- Rute pentru Swagger Documentation ---
+
+        # OpenAPI Auth (trebuie să bată în 8083)
+        - id: openapi-auth
+          uri: http://auth-service:8083      # <--- MODIFICAT (era 8082)
+          predicates:
+            - Path=/v3/api-docs/auth-service
+          filters:
+            - RewritePath=/v3/api-docs/auth-service, /v3/api-docs
+
+        # OpenAPI Users (trebuie să bată în 8081)
+        - id: openapi-users
+          uri: http://users-service:8081     # (Era corect)
+          predicates:
+            - Path=/v3/api-docs/users-service
+          filters:
+            - RewritePath=/v3/api-docs/users-service, /v3/api-docs
+
+        # OpenAPI Devices (trebuie să bată în 8082)
+        - id: openapi-devices
+          uri: http://devices-service:8082   # <--- MODIFICAT (era 8083)
+          predicates:
+            - Path=/v3/api-docs/devices-service
+          filters:
+            - RewritePath=/v3/api-docs/devices-service, /v3/api-docs
+
+      # Configurare CORS globală (pentru React)
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173,http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - PATCH
+            allowedHeaders: "*"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: auth-service
+        url: /v3/api-docs/auth-service
+      - name: users-service
+        url: /v3/api-docs/users-service
+      - name: devices-service
+        url: /v3/api-docs/devices-service
+  api-docs:
+    path: /v3/api-docs
+
+# Configurare Log-uri (te ajută să vezi rutele)
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.netty: INFO
