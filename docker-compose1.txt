@@ -205,7 +205,7 @@ services:
       - "traefik.http.routers.monitoring.entrypoints=web"
       - "traefik.http.services.monitoring.loadbalancer.server.port=8085"
 
-    # --- BAZA DE DATE MONITORIZARE ---
+  # --- BAZA DE DATE MONITORIZARE ---
   monitoring-db:
     image: postgres:16
     container_name: monitoring-db

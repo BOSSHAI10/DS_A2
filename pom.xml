@@ -24,7 +24,7 @@
         <module>devices-service</module>
         <module>frontend</module>
         <module>traefik</module>
-        <module>monitoring-service</module>
+        <module>counter-simulator</module>
     </modules>
 
     <properties>
