@@ -14,7 +14,7 @@ public class MeasurementConsumer {
     private MeasurementRepository measurementRepository;
 
     // Ascultă coada definită în RabbitMqConfig
-    @RabbitListener(queues = "sensor_queue")
+    @RabbitListener(queues = "device_queue")
     public void consumeMessage(MeasurementDTO dto) {
         try {
             System.out.println("Message received from device: " + dto.getDevice_id());

@@ -12,6 +12,7 @@
         <module name="smart_couter_simulator" />
         <module name="traefik" />
         <module name="api-gateway" />
+        <module name="monitoring-service" />
         <module name="devices-service" />
         <module name="frontend" />
       </profile>
@@ -28,6 +29,7 @@
       <module name="demo-app" options="-parameters" />
       <module name="devices-service" options="-parameters" />
       <module name="frontend" options="-parameters" />
+      <module name="monitoring-service" options="-parameters" />
       <module name="smart_couter_simulator" options="-parameters" />
       <module name="traefik" options="-parameters" />
       <module name="users-service" options="-parameters" />

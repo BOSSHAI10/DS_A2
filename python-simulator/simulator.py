@@ -1,12 +1,12 @@
 import pika
 import json
-import time
 import random
 import sys
+import time
 from datetime import datetime
 
 # --- CONFIGURARE ---
-QUEUE_NAME = 'sensor_data_queue'
+QUEUE_NAME = 'device_queue'
 CONFIG_FILE = 'sensor_config.properties'
 RABBIT_HOST = 'localhost' # Se conectează la Docker-ul care rulează pe portul 5672
 
@@ -69,7 +69,7 @@ def main():
             measurement = generate_consumption()
             
             # 2. Generare Timestamp formatat
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = int(time.time() * 1000)
 
             # 3. Creare JSON (Python dicts sunt ordonate în versiunile noi, deci ordinea se păstrează)
             message_data = {

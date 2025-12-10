@@ -121,7 +121,7 @@ services:
       - DB_DBNAME=credentials-db
       - DB_USER=postgres
       - DB_PASSWORD=root
-      - PORT=8080
+      - PORT=8083
     networks:
       - demo_net
     depends_on:
@@ -167,12 +167,13 @@ services:
     networks:
       - demo_net
 
+  # --- RABBITMQ ---
   rabbitmq:
-    image: rabbitmq:4.2.1-management-alpine
+    image: rabbitmq:3.12-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"   # Portul pentru comunicare
-      - "15672:15672" # Interfata de management (user/pass default: guest/guest)
+      - "5672:5672"
+      - "15672:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest

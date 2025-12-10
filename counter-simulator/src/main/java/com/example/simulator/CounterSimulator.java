@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 
 public class CounterSimulator {
 
-    private static final String QUEUE_NAME = "device-queue";
+    private static final String QUEUE_NAME = "device_queue";
 
     private static final String CONFIG_FILE = "sensor_config.properties";
 
