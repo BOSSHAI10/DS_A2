@@ -90,7 +90,7 @@ def main():
             print(f" [x] Sent: {json_message}")
 
             # 5. Pauză (3 secunde pentru test, 600 pentru cerința de 10 min)
-            time.sleep(3)
+            time.sleep(10)
 
     except pika.exceptions.AMQPConnectionError:
         print("Eroare: Nu m-am putut conecta la RabbitMQ. Asigură-te că Docker rulează!")
